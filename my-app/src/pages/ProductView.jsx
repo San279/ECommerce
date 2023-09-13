@@ -18,9 +18,9 @@ import { useDispatch } from "react-redux";
 
 const Container = styled.div`
     display: flex;
-    padding: 15%;
-    margin-top: -12%;
-    //justify-content: center;
+    padding: 10%;
+    margin-top: -7%;
+    justify-content: space-around;
     ${mobile({ display: "none" })}
 `;
 
@@ -75,7 +75,8 @@ const Radio = styled.div`
 const InfoContainer = styled.div`
     border-radius: 10px;
     width: 600px;
-    background-color: lightgray;
+    border: 1px solid cyan;
+    background-color: aliceblue;
     letter-spacing: 3px;
     font-family: Segoe UI;
     z-index: 2;
@@ -165,7 +166,7 @@ const SimilarProduct = styled.h2`
     display: flex;
     justify-content: center;
     letter-spacing: 3px;
-    margin-top: -2%;
+    margin-top: -1%;
     font-family: Segoe UI; 
     font-weight: bold;
 `;
@@ -301,6 +302,8 @@ const ProductView = () => {
                 </CartContainer>
         </InfoContainer>
     </Container>
+    <br/>
+    <br/>
     <SimilarProduct>Similar Products</SimilarProduct>
     <Products/>
     <Footer/>

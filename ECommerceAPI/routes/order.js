@@ -17,7 +17,7 @@ router.post("/", async (req,res)=>{
 
 
 //update
-router.put("/:id", verifyTokenAndAdmin, async (req, res) =>{
+router.put("/:id", async (req, res) =>{
 
     try{
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {
@@ -33,7 +33,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) =>{
 
 
 //Delete
-router.delete("/:id", verifyTokenAndAdmin, async (req,res)=>{
+router.delete("/:id", async (req,res)=>{
     try{
         await Order.findByIdAndDelete(req.params.id);
         res.status(200).json("The order has been deleted");
@@ -45,9 +45,13 @@ router.delete("/:id", verifyTokenAndAdmin, async (req,res)=>{
 
 
 //Get user's order
-router.get("/", verifyTokenAndAuthorization, async (req,res)=>{
+router.get("/user/:id", async (req,res)=>{
     try{
-        const orders= await Order.findOne();
+        const orders= await Order.find(
+          {userId: {
+            $in: [req.params.id],
+           },
+      });
         res.status(200).json(orders)
 
     }catch(err){

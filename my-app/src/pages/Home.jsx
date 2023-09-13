@@ -52,37 +52,39 @@ const Home = () => {
   }catch(err){}
   */
 
-
+let userRes;
   useEffect(()=>{
-  const getUser = async () => {
-    fetch("http://localhost:5000/api/auth/login/success", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
+    const getUser = async () => {
+      fetch("http://localhost:5000/api/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
       })
-      .then((resObject) => {
-        console.log(resObject);
-        loginGoogle(dispatch, resObject);
-        if(user !== null){
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+          userRes = resObject;
+          console.log(resObject);
+          loginGoogle(dispatch, resObject);
+          if(user !== null){
           getUserCart(dispatch,user._id);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
  user === null && getUser();
 }, []);
-  
+
+//console.log(userRes);
 return (
     <div>
       <Navbar/>

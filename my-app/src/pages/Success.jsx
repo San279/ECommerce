@@ -10,8 +10,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import image from '../components/pexels-karolina-grabowska-4040644.jpg'
 
 
 const Container = styled.div`
@@ -198,6 +196,10 @@ const Success = () => {
         const res = await userRequest.post("/orders", {
           userId: currentUser._id,
           products: cart.products.map((item) => ({
+            productName: item.title,
+            productImg: item.image,
+            productPrice: item.price,
+            productDimension: item.dimensions,
             productId: item._id,
             quantity: item._quantity,
           })),
@@ -207,7 +209,7 @@ const Success = () => {
         setOrderId(res.data._id);
       } catch {}
     };
-    //data && createOrder();
+      data && createOrder();
   }, [cart, data, currentUser]);  
 
   return (

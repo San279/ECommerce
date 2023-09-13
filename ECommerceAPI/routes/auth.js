@@ -40,7 +40,6 @@ router.get(
 router.get("/login/success", async (req, res) => {
     if (req.user) {
       const userGoogle = await User.findOne({email: req.user._json.email});
-      console.log(userGoogle);
 
       if(userGoogle === null){
         res.status(401).json("Google Login failed");
@@ -79,6 +78,17 @@ router.get("/login/success", async (req, res) => {
     req.logout();
     res.redirect(CLIENT_URL);
   });
+/*
+  router.get("/login/google", async (req, res) => {
+    res.status(200).json({
+      success: true,
+      message: "successfull",
+      user: req.user,
+      //cookies: req.cookies
+    });
+  });
+*/
+
 
 ////////////////////////////////////////////////////
 

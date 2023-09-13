@@ -29,7 +29,7 @@ const ButtonsGroup = styled.div`
 const Image = styled.img`
   //background-color: red;
   border-radius: 6px;
-  height: 60%;
+  height: 55%;
   width: 100%;
   margin-bottom: -17px;
 `;
@@ -87,9 +87,9 @@ const Product = ({item}) => {
   let navigate = useNavigate();
 
   const goToProduct = (itemId) =>{
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     navigate("/product/" + itemId);
     window.location.reload();
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 };
 
   return (

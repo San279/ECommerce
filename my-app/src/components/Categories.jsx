@@ -87,7 +87,7 @@ const Categories = () => {
     <Container>
       {categories.map((item) => (
         <CatContainer key={item.id} >
-          <Link to ={`/products/${item.cat}/stone`}> 
+          <Link to ={`/products/${item.cat}/all`}> 
           <Image src={item.img} />
           <Info>
             <InfoTitle>{item.title}</InfoTitle>

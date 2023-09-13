@@ -1,6 +1,7 @@
 import { publicRequest } from "../requestMethods";
-import { loginFailure, loginStart, loginSuccess } from "./userRedux";
-import { setCartId, userCart, setUserId } from "./cartRedux";
+import axios from 'axios';
+import { loginFailure, loginStart, loginSuccess, logout} from "./userRedux";
+import { setCartId, userCart, setUserId, logoutCart } from "./cartRedux";
 
 export const login = async (dispatch,user)=>{
     dispatch(loginStart());
@@ -13,13 +14,14 @@ export const login = async (dispatch,user)=>{
 };
 
 export const loginGoogle = async (dispatch, user)=>{
-    dispatch(loginStart());
+
     try{
         dispatch(loginSuccess(user));
     }catch(err){
         dispatch(loginFailure());
     }
 };
+
 
 export const getUserCart = async (dispatch,userId)=>{
     try{  

@@ -18,7 +18,7 @@ const cartSlice = createSlice({
 
     reducers:{
         addProduct:(state,action)=>{
-            if(state.products !== []){
+            if(state.products !== null){
                 for(let i = 0; i < state.products.length; i++){
                     cartMap.set(state.products[i].title, i)
                 }
@@ -41,6 +41,9 @@ const cartSlice = createSlice({
                 state.products.push(action.payload);
                 state.total += action.payload.price * action.payload.quantity;
             }
+            if(state.userId !== null){
+                updateCart(state);
+            }
 
         },
         addProductfromCart:(state,action)=>{
@@ -49,6 +52,7 @@ const cartSlice = createSlice({
                     state.products[i].quantity += 1;
                     state.quantity += 1;
                     state.total += action.payload.price;
+                    updateCart(state);
                 }
             }        
         },
@@ -62,6 +66,7 @@ const cartSlice = createSlice({
                     }
                     state.quantity -= 1;
                     state.total -= action.payload.price;
+                    updateCart(state);
                 }
             }
             if(state.total < 0)
@@ -88,11 +93,10 @@ const cartSlice = createSlice({
         },
 
         logoutCart:(state)=>{
-            if(state._id != null){
-                updateCart(state);
-            }else if(state._id == null && state.products !== []){
+            if(state._id == null){
                 createCart(state)
             }
+            updateCart(state);
             state.products = [];
             state.quantity=0;
             state.total = 0;

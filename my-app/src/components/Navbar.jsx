@@ -1,11 +1,12 @@
 import { Badge } from '@material-ui/core';
-import { SearchRounded, ShoppingCartOutlined } from '@material-ui/icons';
+import { ShoppingCartOutlined } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
 import { mobile } from "../pages/responsive";
 import { useSelector } from 'react-redux';
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { logout} from '../redux/userRedux';
+import Collapsible from 'react-collapsible';
 import { logoutCart} from '../redux/cartRedux';
 import { useDispatch } from "react-redux";
 
@@ -80,11 +81,34 @@ const Right = styled.div`
     justify-content: flex-end;
 `;
 
-const RegisterLogoutItem = styled.div`
+const Registertem = styled.div`
    font-size: 18px;
    cursor: pointer;
    padding: 10px;
    margin-left: 30px;
+`;
+
+const CollaspContainer= styled.div`
+   opacity: 0.85;
+   border: 1px solid lightseagreen;
+   background-color:white;
+   cursor: pointer;
+   justify-content: center;
+`;
+
+
+const CollaspText= styled.span`
+   display: flex;
+   font-size: 15px;
+   cursor: pointer;
+   color: black;
+   padding: 10px;
+   justify-content: center;
+   &:hover{
+    transform: scale(1.05);
+    color: lightseagreen;
+}
+
 `;
 
 const LoginItem = styled.div`
@@ -113,7 +137,8 @@ const Navbar = () => {
     const Logout=() =>{
         dispatch(logout());
         dispatch(logoutCart());
-        navigate("/login");
+        window.location.replace("http://localhost:5000/api/auth/logout");
+        //logoutGoogle(dispatch,user);
       }
     
 
@@ -128,15 +153,18 @@ const Navbar = () => {
                 <Name onClick = {()=>navigate("/")}>GEMSTORY</Name>
             </Center>
 
-            <Right>
-                <RegisterLogoutItem>
-                    {user? <Text onClick = {()=>Logout()}>Logout</Text>: 
-                    <Text></Text>}
-                </RegisterLogoutItem>
-
+            <Right>           
                 <LoginItem>
-                    {user? user.username : 
-                    <Text onClick = {()=>navigate("/login")}>Login</Text>}
+                    {user === null?
+                    <Text onClick = {()=>navigate("/login")}>Login</Text> 
+                    :
+                    <Collapsible trigger= {user.username} >
+                        <CollaspContainer>
+                            <CollaspText onClick = {()=>navigate("/orders")}>Orders</CollaspText>
+                            <CollaspText onClick = {()=>Logout()}>Logout</CollaspText>
+                        </CollaspContainer>
+                    </Collapsible>
+                    }
                 </LoginItem>
                 
                 <CartItem onClick = {()=>navigate("/cart")}> 

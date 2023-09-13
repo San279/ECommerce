@@ -47,13 +47,21 @@ const ProductList = () => {
     let navigate = useNavigate();
     const location = useLocation();
     const cat = location.pathname.split("/")[2];
-    const filter = location.pathname.split("/")[3];
+    let filter = location.pathname.split("/")[3];
     const [filters,setFilter] = useState({})
     const [sort,setSort] = useState("newest")
 
     useEffect(() => {
         const setType = () => {
-            if(filter !== null){
+            if(filter !== null && filter !== "all"){
+                setFilter({
+                ...filters,
+                ["type"]:filter,
+            });
+            }
+            else if(filter !== null && filter === "all"){
+                filter = ["stone", "necklage", "piercing",
+      "         ring", "bracelet"];
                 setFilter({
                 ...filters,
                 ["type"]:filter,
@@ -66,14 +74,11 @@ const ProductList = () => {
     const typeChange = (value)=>{
         navigate(`/products/${cat}/${value}`); //pass filter values
     };
-
+    
     //navigate to specific gem type
     const categoryChange = (value)=> {
         navigate(`/products/${value}/${filter}`);
     };
-
-    //console.log("filter from path", filter);
-    //console.log("filter from state filter", filters);
      
     return (
 
@@ -100,6 +105,7 @@ const ProductList = () => {
                         <Option value = "bracelet">Bracelet</Option>
                         <Option value = "ring">Ring</Option>
                         <Option value = "piercing">Piercing</Option>
+                        <Option value = "all">All</Option>
                     </Select>
             </Filter>
             <Filter>

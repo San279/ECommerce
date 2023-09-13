@@ -19,3 +19,26 @@ export const addComma = (price)=>{
     }
     return result;
 };
+
+
+export const extractDate = (dateTime)=>{
+    var result = new Date(dateTime);
+    result.setDate(result.getDate());
+    const resStr = result.toDateString();
+    return resStr;
+}
+
+export const extractTime = (dateTime)=>{
+    const dateTimesplit = dateTime.split('T');
+    const timeSplit = dateTimesplit[1].split('.');
+    return timeSplit[0];
+}
+
+export const addDays = (dateTime, days) =>{
+    var result = new Date(dateTime);
+    result.setDate(result.getDate() + days);
+
+    const resStr = result.toDateString();
+    return resStr;
+
+}
